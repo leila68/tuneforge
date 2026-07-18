@@ -1,0 +1,34 @@
+# Example Axolotl config for a LoRA fine-tuning run.
+# The backend generates a file like this per training job, based on
+# the user's selections in the Training Configuration screen.
+
+base_model: meta-llama/Llama-3.2-1B
+model_type: LlamaForCausalLM
+tokenizer_type: AutoTokenizer
+
+load_in_4bit: false   # set true for QLoRA instead of LoRA
+adapter: lora
+
+datasets:
+  - path: ./data/train.jsonl
+    type: alpaca
+
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target_modules:
+  - q_proj
+  - v_proj
+
+sequence_len: 1024
+sample_packing: true
+
+gradient_accumulation_steps: 4
+micro_batch_size: 4
+num_epochs: 3
+learning_rate: 0.0002
+
+bf16: true
+
+wandb_project: tuneforge
+output_dir: ./outputs/lora-run
