@@ -10,7 +10,7 @@ import { TrainingMonitorPage } from "@/pages/training-monitor"
 import { EvaluationPage } from "@/pages/evaluation"
 import { DeploymentPage } from "@/pages/deployment"
 import { ChatPage } from "@/pages/chat"
-import { SettingsPage } from "@/pages/settings"
+import { SettingsPage } from "@/pages/setting"
 
 export default function App() {
   return (
