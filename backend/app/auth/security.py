@@ -74,3 +74,36 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if user is None:
         raise credentials_error
     return user
+
+# Same as oauth2_scheme, but auto_error=False means it returns None
+# instead of raising 401 when there's no token — lets a route work
+# for both guests and logged-in users.
+oauth2_scheme_optional = OAuth2PasswordBearer(tokenUrl="auth/login", auto_error=False)
+
+
+def get_current_user_optional(
+    token: str | None = Depends(oauth2_scheme_optional),
+    db: Session = Depends(get_db),
+) -> User | None:
+    """
+    Dependency for routes that work for everyone, but personalize
+    if the user happens to be logged in. Never raises -- worst case
+    returns None and the route treats the caller as a guest.
+
+    Usage:
+        @router.get("/")
+        def list_projects(current_user: User | None = Depends(get_current_user_optional)):
+            if current_user is None:
+                ... guest path ...
+    """
+    if token is None:
+        return None
+    try:
+        payload = decode_access_token(token)
+        email: str | None = payload.get("sub")
+        if email is None:
+            return None
+    except JWTError:
+        return None
+
+    return db.query(User).filter(User.email == email).first()
