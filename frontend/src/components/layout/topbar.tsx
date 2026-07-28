@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { Menu, Moon, Sun, User, LogOut, Settings as SettingsIcon, ChevronDown } from "lucide-react"
+import { useNavigate, Link } from "react-router-dom"
+import { Menu, Boxes, Moon, Sun, User, LogOut, Settings as SettingsIcon, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/lib/theme"
 import { useAuth } from "@/lib/auth"
@@ -33,6 +33,13 @@ export function Topbar({ onOpenSidebar }: { onOpenSidebar?: () => void }) {
         >
           <Menu className="h-5 w-5" />
         </Button>
+
+           <Link to="/" className="flex items-center gap-2">
+          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <Boxes className="h-4 w-4" />
+          </div>
+          <span className="text-sm font-semibold tracking-tight">TuneForge</span>
+        </Link>
       </div>
 
       <div className="flex items-center gap-1.5">
