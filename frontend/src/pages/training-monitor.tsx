@@ -90,10 +90,7 @@ export function TrainingMonitorPage() {
         description="Live loss curve, metrics, and logs for the active run."
         breadcrumbs={[{ label: "Projects", to: "/" }, { label: "Monitor" }]}
         meta={
-          <StatusBadge
-            status={status === "running" ? "training" : status === "completed" ? "deployed" : "draft"}
-            label={status === "running" ? "Running" : status === "completed" ? "Completed" : "Cancelled"}
-          />
+          <StatusBadge status={status} />
         }
         actions={
           status === "running" ? (
