@@ -98,7 +98,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* Why I built this */}
+        {/* Why I built this
         <section className="mx-auto max-w-3xl px-5 pb-24">
           <Card className="p-6 sm:p-8">
             <h2 className="font-semibold">Why I built this</h2>
@@ -110,7 +110,7 @@ export function LandingPage() {
               devices.
             </p>
           </Card>
-        </section>
+        </section> */}
       </main>
     </div>
   )
